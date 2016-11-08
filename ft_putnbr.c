@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 12:17:38 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/08 19:03:00 by mleroy           ###   ########.fr       */
+/*   Created: 2016/11/06 20:50:57 by mleroy            #+#    #+#             */
+/*   Updated: 2016/11/07 14:11:57 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+void	ft_putnbr(int n)
 {
-	t_list	*p;
-	t_list	*new;
+	char	*negative_limit;
 
-	if (lst == NULL)
-		return (NULL);
-	new = f(lst);
-	if (new == NULL)
-		return (NULL);
-	new = f(lst);
-	p = new;
-	while (lst->next)
+	negative_limit = "-2147483648";
+	if (n == -2147483648)
+		ft_putstr(negative_limit);
+	else
 	{
-		lst = lst->next;
-		if (!(p->next = f(lst)))
-			return (NULL);
-		p = p->next;
+		if ((n > -2147483648) && (n < 0))
+		{
+			ft_putchar('-');
+			n = -n;
+		}
+		if (n >= 10)
+		{
+			ft_putnbr(n / 10);
+			ft_putnbr(n % 10);
+		}
+		else
+			ft_putchar(n + 48);
 	}
-	return (new);
 }

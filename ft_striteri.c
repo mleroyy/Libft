@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 12:17:38 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/08 19:03:00 by mleroy           ###   ########.fr       */
+/*   Created: 2016/11/07 14:21:38 by mleroy            #+#    #+#             */
+/*   Updated: 2016/11/08 18:46:42 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	t_list	*p;
-	t_list	*new;
+	unsigned int	i;
 
-	if (lst == NULL)
-		return (NULL);
-	new = f(lst);
-	if (new == NULL)
-		return (NULL);
-	new = f(lst);
-	p = new;
-	while (lst->next)
+	i = 0;
+	if (s && f)
 	{
-		lst = lst->next;
-		if (!(p->next = f(lst)))
-			return (NULL);
-		p = p->next;
+		while (s[i] != '\0')
+		{
+			f(i, &s[i]);
+			i++;
+		}
 	}
-	return (new);
 }

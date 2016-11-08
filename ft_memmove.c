@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 12:17:38 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/08 19:03:00 by mleroy           ###   ########.fr       */
+/*   Created: 2016/11/04 14:16:43 by mleroy            #+#    #+#             */
+/*   Updated: 2016/11/08 19:07:41 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	t_list	*p;
-	t_list	*new;
+	char	*d;
+	char	*s;
+	size_t	n;
 
-	if (lst == NULL)
-		return (NULL);
-	new = f(lst);
-	if (new == NULL)
-		return (NULL);
-	new = f(lst);
-	p = new;
-	while (lst->next)
+	n = 0;
+	d = (char *)dst;
+	s = (char *)src;
+	if (d < s)
 	{
-		lst = lst->next;
-		if (!(p->next = f(lst)))
-			return (NULL);
-		p = p->next;
+		while (n < len)
+		{
+			d[n] = s[n];
+			n++;
+		}
 	}
-	return (new);
+	else if (d > s)
+	{
+		n = len;
+		while (n > 0)
+		{
+			d[n - 1] = s[n - 1];
+			n--;
+		}
+	}
+	return (dst);
 }

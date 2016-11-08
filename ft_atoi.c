@@ -1,36 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 12:17:38 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/08 19:03:00 by mleroy           ###   ########.fr       */
+/*   Created: 2016/11/05 15:39:28 by mleroy            #+#    #+#             */
+/*   Updated: 2016/11/08 20:12:16 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+int		ft_atoi(const char *str)
 {
-	t_list	*p;
-	t_list	*new;
+	int		i;
+	int		sign;
+	int		integer;
 
-	if (lst == NULL)
-		return (NULL);
-	new = f(lst);
-	if (new == NULL)
-		return (NULL);
-	new = f(lst);
-	p = new;
-	while (lst->next)
+	i = 0;
+	sign = 0;
+	//integer = 0;
+	while (!(integer = 0) && (str[i] <= 32))
 	{
-		lst = lst->next;
-		if (!(p->next = f(lst)))
-			return (NULL);
-		p = p->next;
+		if (str[i] == '\200')
+			return (0);
+		i++;
 	}
-	return (new);
+	if (str[i] == '-')
+		sign = 1;
+	if ((str[i] == '-') || (str[i] == '+'))
+		i++;
+	while ((str[i] >= 48) && (str[i] <= 57))
+	{
+		integer *= 10;
+		integer += str[i] - 48;
+		i++;
+	}
+	if (sign == 1)
+		integer = -integer;
+	return (integer);
 }

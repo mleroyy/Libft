@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 12:17:38 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/08 19:03:00 by mleroy           ###   ########.fr       */
+/*   Created: 2016/11/05 12:12:24 by mleroy            #+#    #+#             */
+/*   Updated: 2016/11/07 14:15:41 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+size_t		ft_strlcat(char *dst, const char *src, size_t size)
 {
-	t_list	*p;
-	t_list	*new;
+	int		i;
+	int		h;
+	int		j;
+	int		len;
+	int		delta;
 
-	if (lst == NULL)
-		return (NULL);
-	new = f(lst);
-	if (new == NULL)
-		return (NULL);
-	new = f(lst);
-	p = new;
-	while (lst->next)
+	j = 0;
+	i = 0;
+	h = 0;
+	while (dst[i])
+		i++;
+	while (src[h])
+		h++;
+	delta = size - i;
+	if (delta < 0)
+		len = size + h;
+	else
+		len = h + i;
+	while (delta - 1 > 0 && src[j])
 	{
-		lst = lst->next;
-		if (!(p->next = f(lst)))
-			return (NULL);
-		p = p->next;
+		dst[i++] = src[j++];
+		delta--;
 	}
-	return (new);
+	dst[i] = '\0';
+	return (len);
 }

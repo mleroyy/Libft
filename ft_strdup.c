@@ -1,36 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 12:17:38 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/08 19:03:00 by mleroy           ###   ########.fr       */
+/*   Created: 2016/11/04 16:01:28 by mleroy            #+#    #+#             */
+/*   Updated: 2016/11/08 16:36:03 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+char	*ft_strdup(const char *s1)
 {
-	t_list	*p;
-	t_list	*new;
+	char	*dup;
+	int		size;
+	int		i;
 
-	if (lst == NULL)
+	i = 0;
+	size = ft_strlen(s1);
+	dup = (char *)malloc(sizeof(char) * (size + 1));
+	if (dup == NULL)
 		return (NULL);
-	new = f(lst);
-	if (new == NULL)
-		return (NULL);
-	new = f(lst);
-	p = new;
-	while (lst->next)
+	while (i < size)
 	{
-		lst = lst->next;
-		if (!(p->next = f(lst)))
-			return (NULL);
-		p = p->next;
+		dup[i] = s1[i];
+		i++;
 	}
-	return (new);
+	dup[i] = '\0';
+	return (dup);
 }

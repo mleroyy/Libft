@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 12:17:38 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/08 19:03:00 by mleroy           ###   ########.fr       */
+/*   Created: 2016/11/05 14:15:23 by mleroy            #+#    #+#             */
+/*   Updated: 2016/11/07 14:16:49 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+char	*ft_strrchr(const char *s, int c)
 {
-	t_list	*p;
-	t_list	*new;
+	char	character;
+	char	*ptr;
+	int		count;
 
-	if (lst == NULL)
-		return (NULL);
-	new = f(lst);
-	if (new == NULL)
-		return (NULL);
-	new = f(lst);
-	p = new;
-	while (lst->next)
+	count = -1;
+	character = c;
+	ptr = (void *)s;
+	while (*ptr != 0)
 	{
-		lst = lst->next;
-		if (!(p->next = f(lst)))
-			return (NULL);
-		p = p->next;
+		ptr++;
+		count++;
 	}
-	return (new);
+	while (count > 0)
+	{
+		if (*ptr == character)
+			return (ptr);
+		else
+		{
+			ptr--;
+			count--;
+		}
+	}
+	return (NULL);
 }

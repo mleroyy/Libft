@@ -1,36 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/07 12:17:38 by mleroy            #+#    #+#             */
-/*   Updated: 2016/11/08 19:03:00 by mleroy           ###   ########.fr       */
+/*   Created: 2016/11/05 15:00:18 by mleroy            #+#    #+#             */
+/*   Updated: 2016/11/08 19:47:34 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	t_list	*p;
-	t_list	*new;
+	unsigned int		i;
+	unsigned int		j;
+	char				*res;
 
-	if (lst == NULL)
+	i = 0;
+	j = 0;
+	if (!big || !little)
 		return (NULL);
-	new = f(lst);
-	if (new == NULL)
-		return (NULL);
-	new = f(lst);
-	p = new;
-	while (lst->next)
+	res = (void *)big;
+	if (little[0] == 0)
+		return (res);
+	while (res[i] && (i < len))
 	{
-		lst = lst->next;
-		if (!(p->next = f(lst)))
-			return (NULL);
-		p = p->next;
+		while (res[i + j] == little[j])
+		{
+			if ((res[i + j] == little[j]) && little[j + 1] == '\0')
+				return (res + i);
+			else
+				j++;
+		}
+		j = 0;
+		i++;
 	}
-	return (new);
+	return (NULL);
 }
